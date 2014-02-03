@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
  * 
  * @author wenlin
  */
-public final class CSVReader {
+public final class CSVBufferedReader {
 
     public static BufferedReader read(String filename) {
 
