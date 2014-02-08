@@ -5,11 +5,9 @@
   <parent>
     <groupId>org.buenofelino.easyminer</groupId>
     <artifactId>easyminer</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
   </parent>
-  <groupId>org.buenofelino.easyminer</groupId>
   <artifactId>easyminer-io</artifactId>
-  <version>1.0-SNAPSHOT</version>
   <name>easyminer-io</name>
   <url>http://maven.apache.org</url>
   <dependencies>
