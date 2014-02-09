@@ -2,6 +2,8 @@ package org.ninjacat.easyminer.transformations.normcontinuous;
 
 import java.io.BufferedReader;
 
+import org.dmg.pmml42.DerivedFieldDocument;
+import org.dmg.pmml42.NormContinuousDocument;
 import org.ninjacat.easyminer.io.DoubleData;
 import org.ninjacat.easyminer.io.FileBufferedReader;
 
@@ -46,12 +48,18 @@ public class RangeNormalizer {
 
     }
 
-    public static String exportPMML(DoubleData input, DoubleData derived) {
+    public static DerivedFieldDocument exportPMML(DoubleData input, DoubleData derived) {
 
-        StringBuilder pmmlStr = new StringBuilder();
-        pmmlStr.append("<DerivedField " + derived.getFieldName());
-        pmmlStr.append("   <NormContinuous field = " + input.getFieldName());
+        DerivedFieldDocument pmmlDFDoc = DerivedFieldDocument.Factory.newInstance();
+        DerivedFieldDocument.DerivedField pmmlDF = pmmlDFDoc.addNewDerivedField();
 
-        return pmmlStr.toString();
+        pmmlDF.setName(derived.getFieldName());
+
+        NormContinuousDocument.NormContinuous pmmlNC = pmmlDF.addNewNormContinuous();
+
+        pmmlNC.addNewLinearNorm();
+        pmmlNC.addNewLinearNorm();
+
+        return pmmlDFDoc;
     }
 }

@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+    xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.ninjacat.easyminer</groupId>
+        <artifactId>easyminer</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>easyminer-xsd</artifactId>
+    <name>easyminer-xsd</name>
+    <url>http://maven.apache.org</url>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.0</version>
+                <!-- <executions> <execution> <phase>validate</phase> <id>enforce-versions</id> <goals> <goal>enforce</goal> 
+                    </goals> <configuration> <rules> <requireMavenVersion> <version>[3.0.3,)</version> </requireMavenVersion> <requireJavaVersion> 
+                    <version>1.6.0</version> </requireJavaVersion> </rules> </configuration> </execution> </executions> -->
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <verbose>true</verbose><!-- WINDOWS does not like forking in connection with JAXB/Web service/CXF <fork>true</fork> -->
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.1.2</version>
+                <executions>
+                    <execution>
+                        <id>bundle-sources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <excludes>
+                        <exclude>org/dmg/pmml40/**</exclude>
+                        <exclude>noNamespace/**</exclude>
+                        <exclude>schemaorg_apache_xmlbeans/**</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>xmlbeans-maven-plugin</artifactId>
+                <version>2.3.3</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>xmlbeans</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <memoryMaximumSize>512m</memoryMaximumSize>
+                </configuration>
+                <dependencies><!-- Need this dependency here so that the xbeans plugin can have the stax classes it needs 
+                        for generating the xml beans. -->
+                    <dependency>
+                        <groupId>stax</groupId>
+                        <artifactId>stax-api</artifactId>
+                        <version>1.0</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.xmlbeans</groupId>
+            <artifactId>xmlbeans</artifactId>
+            <version>2.4.0</version>
+            <classifier>java6</classifier>
+            <exclusions>
+                <exclusion>
+                    <groupId>stax</groupId>
+                    <artifactId>stax-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+</project>
