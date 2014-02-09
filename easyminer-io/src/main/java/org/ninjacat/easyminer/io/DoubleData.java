@@ -13,6 +13,8 @@ public final class DoubleData implements FieldData {
 
     Double max = null;
 
+    boolean isTarget = false;
+
     public DoubleData(String fieldName) {
         super();
         this.fieldName = fieldName;
