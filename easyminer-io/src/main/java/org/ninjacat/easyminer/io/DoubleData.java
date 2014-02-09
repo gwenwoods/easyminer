@@ -3,9 +3,7 @@ package org.ninjacat.easyminer.io;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class DoubleData implements FieldData {
-
-    String fieldName;
+public final class DoubleData extends AbstractFieldData {
 
     List<Double> data = new ArrayList<Double>();
 
@@ -13,15 +11,8 @@ public final class DoubleData implements FieldData {
 
     Double max = null;
 
-    boolean isTarget = false;
-
     public DoubleData(String fieldName) {
-        super();
-        this.fieldName = fieldName;
-    }
-
-    public String getFieldName() {
-        return fieldName;
+        super(fieldName);
     }
 
     public List<Double> getData() {

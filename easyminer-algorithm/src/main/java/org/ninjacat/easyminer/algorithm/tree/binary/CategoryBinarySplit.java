@@ -15,6 +15,12 @@ public class CategoryBinarySplit {
 
     List<String> leftNodeCategories = new ArrayList<String>();
 
+    public CategoryBinarySplit(String predicateField, List<String> leftNodeCategories) {
+        super();
+        this.predicateField = predicateField;
+        this.leftNodeCategories = leftNodeCategories;
+    }
+
     Double computeGini(List<FieldData> data) {
 
         StringData targetData = (StringData) data.get(0);
@@ -72,7 +78,12 @@ public class CategoryBinarySplit {
     }
 
     private StringData findPredicateFieldData(List<FieldData> data) {
-        // TODO Auto-generated method stub
+
+        for (FieldData fieldData : data) {
+            if (fieldData.getFieldName().equals(predicateField)) {
+                return (StringData) fieldData;
+            }
+        }
         return null;
     }
 }

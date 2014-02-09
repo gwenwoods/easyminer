@@ -3,23 +3,14 @@ package org.ninjacat.easyminer.io;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class StringData implements FieldData {
-
-    String fieldName;
+public final class StringData extends AbstractFieldData {
 
     List<String> cateLevels = new ArrayList<String>();
 
     List<String> data = new ArrayList<String>();
 
-    boolean isTarget = false;
-
     public StringData(String fieldName) {
-        super();
-        this.fieldName = fieldName;
-    }
-
-    public String getFieldName() {
-        return fieldName;
+        super(fieldName);
     }
 
     public List<String> getData() {
