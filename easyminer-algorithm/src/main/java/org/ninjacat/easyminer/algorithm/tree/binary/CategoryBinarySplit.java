@@ -26,8 +26,8 @@ public class CategoryBinarySplit {
         StringData targetData = (StringData) data.get(0);
         StringData predicateFieldData = findPredicateFieldData(data);
 
-        Map<String, Integer> leftChildNoteResults = new HashMap<String, Integer>();
-        Map<String, Integer> rightChildNoteResults = new HashMap<String, Integer>();
+        Map<String, Integer> leftChildNodeResults = new HashMap<String, Integer>();
+        Map<String, Integer> rightChildNodeResults = new HashMap<String, Integer>();
 
         int leftRecordCount = 0;
         int rightRecordCount = 0;
@@ -40,22 +40,26 @@ public class CategoryBinarySplit {
 
                 leftRecordCount++;
 
-                Integer count = leftChildNoteResults.get(targetRecordCate);
+                Integer count = leftChildNodeResults.get(targetRecordCate);
                 if (count == null) {
                     count = 1;
+                } else {
+                    count++;
                 }
 
-                leftChildNoteResults.put(targetRecordCate, count);
+                leftChildNodeResults.put(targetRecordCate, count);
 
             } else {
 
                 rightRecordCount++;
-                Integer count = rightChildNoteResults.get(targetRecordCate);
+                Integer count = rightChildNodeResults.get(targetRecordCate);
                 if (count == null) {
                     count = 1;
+                } else {
+                    count++;
                 }
 
-                rightChildNoteResults.put(targetRecordCate, count);
+                rightChildNodeResults.put(targetRecordCate, count);
             }
         }
 
@@ -66,15 +70,25 @@ public class CategoryBinarySplit {
             return null;
         }
 
-        for (Entry<String, Integer> entry : leftChildNoteResults.entrySet()) {
-            leftGini = leftGini * entry.getValue().doubleValue() / (leftRecordCount);
+        for (Entry<String, Integer> entry : leftChildNodeResults.entrySet()) {
+            double prob = entry.getValue().doubleValue() / (leftRecordCount);
+            // System.out.println(prob);
+            leftGini -= prob * prob;
         }
+        // System.out.println("left count = " + leftRecordCount);
+        // System.out.println("left gini = " + leftGini);
 
-        for (Entry<String, Integer> entry : rightChildNoteResults.entrySet()) {
-            rightGini = rightGini * entry.getValue().doubleValue() / (rightRecordCount);
+        for (Entry<String, Integer> entry : rightChildNodeResults.entrySet()) {
+            double prob = entry.getValue().doubleValue() / (rightRecordCount);
+            rightGini -= prob * prob;
         }
+        // System.out.println("right count = " + rightRecordCount);
+        // System.out.println("right gini = " + rightGini);
 
-        return leftGini * rightGini;
+        int totalCount = leftRecordCount + rightRecordCount;
+
+        return leftGini * ((double) leftRecordCount / (double) totalCount) + rightGini
+            * ((double) rightRecordCount / (double) totalCount);
     }
 
     private StringData findPredicateFieldData(List<FieldData> data) {
