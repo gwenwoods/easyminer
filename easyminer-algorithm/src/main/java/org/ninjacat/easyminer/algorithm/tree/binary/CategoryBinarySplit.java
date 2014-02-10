@@ -11,13 +11,13 @@ import org.ninjacat.easyminer.io.StringData;
 
 public class CategoryBinarySplit {
 
-    String predicateField;
+    String splitField;
 
     List<String> leftNodeCategories = new ArrayList<String>();
 
     public CategoryBinarySplit(String predicateField, List<String> leftNodeCategories) {
         super();
-        this.predicateField = predicateField;
+        this.splitField = predicateField;
         this.leftNodeCategories = leftNodeCategories;
     }
 
@@ -94,7 +94,7 @@ public class CategoryBinarySplit {
     private StringData findPredicateFieldData(List<FieldData> data) {
 
         for (FieldData fieldData : data) {
-            if (fieldData.getFieldName().equals(predicateField)) {
+            if (fieldData.getFieldName().equals(splitField)) {
                 return (StringData) fieldData;
             }
         }
