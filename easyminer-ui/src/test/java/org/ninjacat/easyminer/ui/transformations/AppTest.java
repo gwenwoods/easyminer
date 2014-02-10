@@ -29,7 +29,7 @@ public class AppTest extends TestCase {
      * Rigourous Test :-)
      */
     public void testApp() {
-        TransformationsFrame transFrame = new TransformationsFrame();
-        // assertTrue(true);
+
+        assertTrue(true);
     }
 }
