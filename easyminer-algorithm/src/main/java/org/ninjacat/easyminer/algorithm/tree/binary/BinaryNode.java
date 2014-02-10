@@ -25,7 +25,10 @@ public final class BinaryNode {
         if (childrenNodes.size() == 2) {
             this.leftChild = childrenNodes.get(0);
             this.rightChild = childrenNodes.get(1);
+            this.hasChildren = true;
         }
+
+        // TODO: compute score/ scoreDistribution from data here
     }
 
     private List<BinaryNode> splitToChildren(List<FieldData> data) {
