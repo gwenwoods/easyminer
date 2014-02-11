@@ -11,6 +11,9 @@ import javax.swing.JFrame;
 public final class TransformationsFrame extends JFrame implements ActionListener {
 
     private static final long serialVersionUID = 1L;
+    JButton linkFileButton = new JButton("Link Data File");
+    JButton chooseWorkingDirButton = new JButton("Choose Working Dir");
+    JButton createTransformedField = new JButton("Transform Fields");
 
     public TransformationsFrame() {
 
@@ -31,12 +34,26 @@ public final class TransformationsFrame extends JFrame implements ActionListener
     }
 
     public void actionPerformed(ActionEvent evt) {
-        JFileChooser fileChooser = new JFileChooser();
-        int returnValue = fileChooser.showOpenDialog(null);
-        if (returnValue == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
-            System.out.println(selectedFile.getName());
-            System.out.println(selectedFile.getAbsolutePath());
+
+        if (evt.getSource() == linkFileButton) {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            int returnValue = fileChooser.showOpenDialog(null);
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                System.out.println(selectedFile.getName());
+                System.out.println(selectedFile.getAbsolutePath());
+            }
+        } else if (evt.getSource() == chooseWorkingDirButton) {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            int returnValue = fileChooser.showOpenDialog(null);
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                System.out.println(selectedFile.getName());
+                System.out.println(selectedFile.getAbsolutePath());
+            }
         }
     }
+
 }

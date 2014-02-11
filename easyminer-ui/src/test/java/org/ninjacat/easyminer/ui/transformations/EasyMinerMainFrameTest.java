@@ -1,13 +1,11 @@
 package org.ninjacat.easyminer.ui.transformations;
 
-public class TransformationsFrameTest {
+public class EasyMinerMainFrameTest {
 
     /**
      * @param args
      */
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
-
+        new EasyMinerMainFrame();
     }
-
 }
