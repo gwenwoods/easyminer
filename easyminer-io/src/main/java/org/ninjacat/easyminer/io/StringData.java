@@ -24,4 +24,8 @@ public final class StringData extends AbstractFieldData {
             cateLevels.add(record);
         }
     }
+
+    public List<String> getCateLevels() {
+        return cateLevels;
+    }
 }

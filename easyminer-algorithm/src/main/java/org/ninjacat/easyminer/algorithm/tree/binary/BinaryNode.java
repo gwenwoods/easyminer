@@ -1,9 +1,12 @@
 package org.ninjacat.easyminer.algorithm.tree.binary;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.ninjacat.easyminer.io.FieldData;
+import org.ninjacat.easyminer.io.StringData;
 
 public final class BinaryNode {
 
@@ -86,6 +89,25 @@ public final class BinaryNode {
 
         // TODO:
         // We should use binary map to indicate the split to be efficient
+
+        List<String> splitFieldNames = new ArrayList<String>();
+
+        Map<String, List<String>> splitFieldCategoriesMap = new HashMap<String, List<String>>();
+
+        for (FieldData fieldData : data) {
+            if (fieldData instanceof StringData) {
+                splitFieldCategoriesMap.put(fieldData.getFieldName(),
+                    ((StringData) fieldData).getCateLevels());
+
+                String fieldName = fieldData.getFieldName();
+                List<String> levels = ((StringData) fieldData).getCateLevels();
+
+                int splitsCount = (int) Math.pow(2, levels.size());
+                for (int i = 0; i < splitsCount; i++) {
+                    CateBinarySplit split = new CateBinarySplit(fieldName, i);
+                }
+            }
+        }
 
         return null;
     }
