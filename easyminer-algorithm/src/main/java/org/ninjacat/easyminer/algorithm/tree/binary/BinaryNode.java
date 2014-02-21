@@ -164,14 +164,15 @@ public final class BinaryNode {
         NodeDocument.Node xmlNode = NodeDocument.Node.Factory.newInstance();
         xmlNode.setScore(score);
 
-        NodeDocument.Node xmlLeftChildNode = leftChild != null ? leftChild.exportPMML() : null;
-        NodeDocument.Node xmlRightchildNode = rightChild != null ? rightChild.exportPMML() : null;
+        if (leftChild != null && rightChild != null) {
+            NodeDocument.Node xmlLeftChildNode = leftChild.exportPMML();
+            NodeDocument.Node xmlRightchildNode = rightChild.exportPMML();
+            xmlNode.addNewNode();
+            xmlNode.addNewNode();
 
-        xmlNode.addNewNode();
-        xmlNode.addNewNode();
-
-        xmlNode.setNodeArray(0, xmlLeftChildNode);
-        xmlNode.setNodeArray(1, xmlRightchildNode);
+            xmlNode.setNodeArray(0, xmlLeftChildNode);
+            xmlNode.setNodeArray(1, xmlRightchildNode);
+        }
 
         return xmlNode;
 
