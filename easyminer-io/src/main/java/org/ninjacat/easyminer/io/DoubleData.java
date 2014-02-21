@@ -33,10 +33,6 @@ public final class DoubleData extends AbstractFieldData {
         return max;
     }
 
-    public void addRecord(Double record) {
-        data.add(record);
-    }
-
     private void evaluateMin() {
         min = data.get(0);
         for (Double record : data) {
@@ -54,4 +50,21 @@ public final class DoubleData extends AbstractFieldData {
             }
         }
     }
+
+    @Override
+    public int getRecordCount() {
+        return data.size();
+    }
+
+    @Override
+    public Object getRecord(int i) {
+        return data.get(i);
+    }
+
+    @Override
+    public void addRecord(Object value) {
+        data.add((Double) value);
+
+    }
+
 }

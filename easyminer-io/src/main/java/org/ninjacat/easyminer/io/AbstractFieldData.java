@@ -1,6 +1,6 @@
 package org.ninjacat.easyminer.io;
 
-public class AbstractFieldData implements FieldData {
+public abstract class AbstractFieldData implements FieldData {
 
     protected String fieldName;
 
@@ -22,4 +22,11 @@ public class AbstractFieldData implements FieldData {
     public void setTarget(boolean isTarget) {
         this.isTarget = isTarget;
     }
+
+    abstract public int getRecordCount();
+
+    abstract public Object getRecord(int i);
+
+    abstract public void addRecord(Object value);
+
 }

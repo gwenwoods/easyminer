@@ -15,6 +15,16 @@
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.5.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+            <version>1.5.6</version>
+        </dependency>
     </dependencies>
     <modules>
         <module>easyminer-xsd</module>
@@ -22,6 +32,6 @@
         <module>easyminer-transformations</module>
         <module>easyminer-algorithm</module>
         <module>easyminer-executor</module>
-        <module>easyminer-ui</module> 
+        <module>easyminer-ui</module>
     </modules>
 </project>

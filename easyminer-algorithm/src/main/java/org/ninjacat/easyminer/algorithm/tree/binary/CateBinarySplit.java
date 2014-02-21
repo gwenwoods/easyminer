@@ -10,7 +10,7 @@ import org.ninjacat.easyminer.io.StringData;
 
 public class CateBinarySplit {
 
-    String splitField;
+    private final String splitField;
 
     int leftCateBinaryValue;
 
@@ -119,5 +119,9 @@ public class CateBinarySplit {
         }
 
         return new ChildRecordDists(leftRecordDist, rightRecordDist, leftCount, rightCount);
+    }
+
+    public String getSplitField() {
+        return splitField;
     }
 }

@@ -14,8 +14,9 @@ public class BinaryTreeLearner {
             usedRecordIndex.add(Boolean.TRUE);
         }
 
-        BinaryNode rootNode = new BinaryNode(new TruePredicate(), data, usedRecordIndex);
+        // BinaryNode rootNode = new BinaryNode(new TruePredicate(), data, usedRecordIndex);
 
-        return new BinaryTree(rootNode);
+        return null;
+        // return new BinaryTree(rootNode);
     }
 }
