@@ -93,6 +93,7 @@ public class RegressionLearner {
         for (Double t : thetas) {
             System.out.println(t);
         }
+
         System.out.println(theta0);
         return null;
     }
