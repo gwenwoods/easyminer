@@ -12,6 +12,8 @@ public class RegressionLearner {
 
     public RegressionModel fitRegression(Integer recordNum, Integer fieldNum, Double[][] data, Double[] y) {
 
+        boolean doneTraining = false;
+
         Double[] thetas = new Double[fieldNum];
 
         Double theta0 = 1.0;
@@ -29,12 +31,12 @@ public class RegressionLearner {
 
         isBatch = false;
         if (isBatch) {
+            // each iteration compute 1 error using the entire set of data;
             for (int iter = 0; iter < iterations; iter++) {
                 System.out.println(" iter " + iter);
                 Double delta0 = 0.0;
                 Double[] deltaj = new Double[fieldNum];
                 for (int fieldIndex = 0; fieldIndex < fieldNum; fieldIndex++) {
-
                     deltaj[fieldIndex] = 0.0;
                 }
                 for (int recordIndex = 0; recordIndex < recordNum; recordIndex++) {
@@ -63,28 +65,16 @@ public class RegressionLearner {
                 }
             }
         } else {
-            for (int iter = 0; iter < iterations; iter++) {
+
+            RegressionHypothesis h = new RegressionHypothesis(theta0, thetas, alpha, tolerence);
+
+            int iter = 0;
+            while (!doneTraining && iter < iterations) {
                 System.out.println(" iter " + iter);
                 for (int recordIndex = 0; recordIndex < recordNum; recordIndex++) {
-                    Double hTheta = theta0;
-                    for (int fieldIndex = 0; fieldIndex < fieldNum; fieldIndex++) {
-                        hTheta += thetas[fieldIndex] * data[recordIndex][fieldIndex];
-                    }
-
-                    // -----------------------------------
-                    // dJ/d_theta_j = (h_theta - y)*x_j
-                    // => theta_j = theta_j + alpha* (y_i - h_theta) * xj
-
-                    Double delta = y[recordIndex] - hTheta;
-
-                    System.out.println(" delta " + delta);
-                    if (Math.abs(delta) < tolerence) {
+                    doneTraining = h.train(data[recordIndex], y[recordIndex]);
+                    if (doneTraining) {
                         break;
-                    }
-                    theta0 += alpha * delta;
-                    for (int fieldIndex = 0; fieldIndex < fieldNum; fieldIndex++) {
-                        thetas[fieldIndex] +=
-                            alpha * (y[recordIndex] - hTheta) * data[recordIndex][fieldIndex];
                     }
                 }
             }
