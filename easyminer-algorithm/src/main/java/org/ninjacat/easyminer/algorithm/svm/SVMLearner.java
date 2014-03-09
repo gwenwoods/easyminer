@@ -2,8 +2,9 @@ package org.ninjacat.easyminer.algorithm.svm;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
-public class SVMLearner {
+public final class SVMLearner {
 
     List<RecordData> supportVectors = new ArrayList<RecordData>();
 
@@ -19,10 +20,8 @@ public class SVMLearner {
 
         alpha = new Double[y.length];
 
-        for (int i = 0; i < y.length; i++) {
-            for (int j = 0; j < y.length; j++) {
-
-            }
+        for (int i = 0; i < recordNum; i++) {
+            Double Ei = fx(supportVectors.get(i).data) - y[i];
         }
 
         return null;
@@ -38,16 +37,16 @@ public class SVMLearner {
      * @param x
      * @return
      */
-    Double fx(Double[] x) {
+    Double fx(Vector<Double> x) {
 
         Double f = bias;
         for (int i = 0; i < supportVectors.size(); i++) {
-            f += alpha[i] * y[i] * kernel(x, supportVectors.get(i));
+            f += alpha[i] * y[i] * kernel(x, supportVectors.get(i).data);
         }
         return f;
     }
 
-    Double kernel(Double[] x, RecordData sv) {
+    Double kernel(Vector<Double> x, Vector<Double> sv) {
         return null;
     }
 }
