@@ -1,4 +1,4 @@
-package org.ninjacat.easyminer.profiling;
+package org.ninjacat.easyminer.profiler;
 
 import java.lang.instrument.Instrumentation;
 
