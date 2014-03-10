@@ -5,7 +5,7 @@ After many years in the field of data mining, working with various model buildin
 
 I started to think perhaps I should start to put together a project which could allow me to do data transformation, standard PMML exporting all in one tool.
 
-This is going to be a long term project, where I can explore and play various ideas in this sandbox as well as adding new pieces to it on the way.
+This is going to be a long term project, where I can explore and play various ideas in this sandbox as well as adding new pieces to it for future uses.
 
 
 
