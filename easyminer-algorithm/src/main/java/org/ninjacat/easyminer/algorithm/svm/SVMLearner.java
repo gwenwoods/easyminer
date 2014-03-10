@@ -22,7 +22,8 @@ public final class SVMLearner {
         alpha = new Double[y.length];
 
         for (int i = 0; i < recordNum; i++) {
-            Double Ei = fx.train(supportVectors.get(i).data) - y[i];
+            // Double Ei = fx.train(supportVectors.get(i).data) - y[i];
+            fx.train(null, null);
         }
 
         return null;

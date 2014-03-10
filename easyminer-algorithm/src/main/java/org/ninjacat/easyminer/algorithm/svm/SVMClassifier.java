@@ -56,6 +56,9 @@ public final class SVMClassifier {
             }
         }
 
+        if (index1 == null) {
+            return null;
+        }
         // for(int )
         return f;
     }

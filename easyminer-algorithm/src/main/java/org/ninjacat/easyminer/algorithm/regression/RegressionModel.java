@@ -36,16 +36,16 @@ public class RegressionModel {
                 // dJ/d_theta_j = (h_theta - y)*x_j
                 // => theta_j = theta_j + alpha* (y_i - h_theta) * xj
 
-                Double delta = y[recordIndex] - hTheta;
-
-                System.out.println(" delta " + delta);
-                if (Math.abs(delta) < tolerence) {
-                    break;
-                }
-                theta0 += alpha * delta;
-                for (int fieldIndex = 0; fieldIndex < fieldNum; fieldIndex++) {
-                    thetas[fieldIndex] += alpha * (y[recordIndex] - hTheta) * data[recordIndex][fieldIndex];
-                }
+                // Double delta = y[recordIndex] - hTheta;
+                //
+                // System.out.println(" delta " + delta);
+                // if (Math.abs(delta) < tolerence) {
+                // break;
+                // }
+                // theta0 += alpha * delta;
+                // for (int fieldIndex = 0; fieldIndex < fieldNum; fieldIndex++) {
+                // thetas[fieldIndex] += alpha * (y[recordIndex] - hTheta) * data[recordIndex][fieldIndex];
+                // }
             }
         }
 
