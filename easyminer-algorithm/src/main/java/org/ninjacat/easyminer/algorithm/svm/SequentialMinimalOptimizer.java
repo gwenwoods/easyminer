@@ -61,5 +61,4 @@ public class SequentialMinimalOptimizer {
         // compute error here : Ei= f_old(xi) -yi
         return null;
     }
-
 }
