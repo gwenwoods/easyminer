@@ -1,7 +1,9 @@
 package org.ninjacat.easyminer.algorithm.svm;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Vector;
 
 public final class SVMLearner {
 
@@ -23,7 +25,7 @@ public final class SVMLearner {
 
         for (int i = 0; i < recordNum; i++) {
             // Double Ei = fx.train(supportVectors.get(i).data) - y[i];
-            fx.train(null, null);
+            fx.train(new Vector<Double>(Arrays.asList(data[i])), y[i]);
         }
 
         return null;

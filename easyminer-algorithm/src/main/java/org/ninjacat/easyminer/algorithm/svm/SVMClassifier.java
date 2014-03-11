@@ -16,6 +16,8 @@ public final class SVMClassifier {
 
     Double[] alpha;
 
+    Double[] error;
+
     public SVMClassifier(List<Vector<Double>> supportVectors, Vector<Double> svTargets, Double constraint,
         Double bias, Double[] alpha) {
         this.supportVectors = supportVectors;
@@ -42,6 +44,10 @@ public final class SVMClassifier {
             f += alpha[i] * svTargets.get(i) * kernel(x, supportVectors.get(i));
         }
 
+        for (int i = 0; i < supportVectors.size(); i++) {
+            error[i] = f - y;
+        }
+
         // ------------------------------------
         // find the dual alpha for SMO
         Double value = f * y;
@@ -58,6 +64,8 @@ public final class SVMClassifier {
 
         if (index1 == null) {
             return null;
+        } else {
+
         }
         // for(int )
         return f;
