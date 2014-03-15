@@ -6,7 +6,7 @@ import java.util.Vector;
 
 public final class SVMObjectiveFunction {
 
-    static Double constraint = 100.0;
+    Double constraint = 100.0;
 
     List<Vector<Double>> supportVectors = new ArrayList<Vector<Double>>();
 
@@ -21,11 +21,12 @@ public final class SVMObjectiveFunction {
     SVMKernel kernel;
 
     public SVMObjectiveFunction(List<Vector<Double>> supportVectors, Vector<Double> svTargets,
-        SVMKernel kernel) {
+        SVMKernel kernel, Double constraint) {
         this.supportVectors.addAll(supportVectors);
         this.svTargets.addAll(svTargets);
 
         this.kernel = kernel != null ? kernel : SVMKernel.LINEAR;
+        this.constraint = constraint;
 
         initialization(supportVectors.size());
     }
@@ -66,21 +67,6 @@ public final class SVMObjectiveFunction {
         return value;
     }
 
-    // Double compute(Vector<Double> data) {
-    //
-    // Double value = bias;
-    // for (int i = 0; i < supportVectors.size(); i++) {
-    // if (alpha[i] == 0) {
-    // // TODO: or alpha_i < epsilon
-    // continue;
-    // }
-    //
-    // value += alpha[i] * kernel(data, supportVectors.get(i));
-    // }
-    //
-    // return value;
-    // }
-
     Double computeTraining(int trainingDataIndex) {
 
         Vector<Double> data = supportVectors.get(trainingDataIndex);
@@ -98,6 +84,14 @@ public final class SVMObjectiveFunction {
         return value;
     }
 
+    /**
+     * SequentialMinimalOptimizer
+     * 
+     * @param alpha_i1
+     *            the first index for the joint optimization
+     * @param alpha_i2
+     *            the second index for the joint optimization
+     */
     void updateDualAlpha(int alpha_i1, int alpha_i2) {
 
         Double[] dualAlpha_new = new Double[2];
@@ -136,15 +130,13 @@ public final class SVMObjectiveFunction {
 
         alpha[alpha_i1] = dualAlpha_new[0];
         alpha[alpha_i2] = dualAlpha_new[1];
-        // return alpha;
     }
 
     private Double computeEta(Vector<Double> x1, Vector<Double> x2) {
-
         return 2 * kernelFun(x1, x2) - kernelFun(x1, x1) - kernelFun(x2, x2);
     }
 
-    private static Double findL(Double y1, Double y2, Double alpha1, Double alpha2) {
+    private Double findL(Double y1, Double y2, Double alpha1, Double alpha2) {
         if (y1 != y2) {
             return Math.max(0, alpha2 - alpha1);
         } else {
@@ -152,11 +144,15 @@ public final class SVMObjectiveFunction {
         }
     }
 
-    private static Double findH(Double y1, Double y2, Double alpha1, Double alpha2) {
+    private Double findH(Double y1, Double y2, Double alpha1, Double alpha2) {
         if (y1 != y2) {
             return Math.min(constraint, constraint + alpha2 - alpha1);
         } else {
             return Math.min(constraint, alpha1 + alpha2);
         }
+    }
+
+    public SupportVectorMachine exportSVM() {
+        return null;
     }
 }

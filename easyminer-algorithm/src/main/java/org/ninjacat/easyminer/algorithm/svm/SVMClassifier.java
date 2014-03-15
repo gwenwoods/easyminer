@@ -5,28 +5,17 @@ import java.util.Vector;
 
 public final class SVMClassifier {
 
-    SVMObjectiveFunction objFun;
-    // List<Vector<Double>> supportVectors = new ArrayList<Vector<Double>>();
+    SVMKernel kernel;
 
-    // Vector<Double> svTargets = new Vector<Double>();
-
+    // Both KKT condition and SMO need constraint
     Double constraint = 100.0;
 
-    // Double bias = 0.0;
+    Integer maxIter = 5000;
 
-    // Double[] alpha;
-
-    Double[] error;
-
-    public SVMClassifier(List<Vector<Double>> supportVectors, Vector<Double> svTargets, Double constraint,
-        Double bias, Double[] alpha) {
-
-        this.objFun = new SVMObjectiveFunction(supportVectors, svTargets, SVMKernel.LINEAR);
-        // this.supportVectors = supportVectors;
-        // this.svTargets = svTargets;
+    public SVMClassifier(SVMKernel kernel, Double constraint, Integer maxIter) {
+        this.kernel = kernel;
         this.constraint = constraint;
-        // this.bias = bias;
-        // this.alpha = alpha;
+        this.maxIter = maxIter;
     }
 
     /**
@@ -37,58 +26,71 @@ public final class SVMClassifier {
      * f(x) = sum(i : all training points) [alpha_i * y_i * kernel(x,xi) ]
      * 
      * @param x
-     * @return
+     * @return true for succeed finishing training
      */
-    Double train() {
 
-        // -----------------------------------
-        // find first alpha index alpha_i1
+    SupportVectorMachine train(List<Vector<Double>> supportVectors, Vector<Double> svTargets) {
 
-        Integer alpha_i1 = null;
-        Double[] alphaArray = objFun.alpha;
+        SVMObjectiveFunction objFun = new SVMObjectiveFunction(supportVectors, svTargets, kernel, constraint);
 
-        for (int i = 0; i < alphaArray.length; i++) {
-            Double objFunValue = objFun.computeTraining(i);
-            Double value = objFunValue * objFun.svTargets.get(i);
-            if (satisfyKKT(alphaArray[i], value)) {
-                continue;
-            } else {
-                alpha_i1 = i;
-                break;
+        boolean doneTraining = false;
+
+        int iterCount = 0;
+
+        while (!doneTraining && iterCount < maxIter) {
+
+            iterCount++;
+            // -----------------------------------
+            // find first alpha index alpha_i1
+            Integer alpha_i1 = null;
+            Double[] alphaArray = objFun.alpha;
+
+            for (int i = 0; i < alphaArray.length; i++) {
+                Double objFunValue = objFun.computeTraining(i);
+                Double value = objFunValue * objFun.svTargets.get(i);
+                if (satisfyKKT(alphaArray[i], value)) {
+                    continue;
+                } else {
+                    alpha_i1 = i;
+                    break;
+                }
             }
-        }
 
-        if (alpha_i1 == null) {
-            return null;
-        }
-
-        // find second alpha index alpha_i2
-        Double e1 = objFun.error[alpha_i1];
-
-        Double maxDeltaE = Math.abs(e1 - objFun.error[0]);
-        Integer alpha_i2 = 0;
-        for (int i = 1; i < objFun.error.length; i++) {
-            Double deltaE = Math.abs(e1 - objFun.error[i]);
-            if (deltaE > maxDeltaE) {
-                maxDeltaE = deltaE;
-                alpha_i2 = i;
+            if (alpha_i1 == null) {
+                doneTraining = true;
+                return objFun.exportSVM();
             }
+
+            // find second alpha index alpha_i2
+            Double e1 = objFun.error[alpha_i1];
+
+            Double maxDeltaE = Math.abs(e1 - objFun.error[0]);
+            Integer alpha_i2 = 0;
+            for (int i = 1; i < objFun.error.length; i++) {
+                Double deltaE = Math.abs(e1 - objFun.error[i]);
+                if (deltaE > maxDeltaE) {
+                    maxDeltaE = deltaE;
+                    alpha_i2 = i;
+                }
+            }
+
+            // ------------------
+            // now we have alpha_i1 and alpha_i2
+            objFun.updateDualAlpha(alpha_i1, alpha_i2);
+
         }
-
-        // ------------------
-        // now we have alpha_i1 and alpha_i2
-
-        objFun.updateDualAlpha(alpha_i1, alpha_i2);
-        // SequentialMinimalOptimizer.updateDualAlpha(alpha1, alpha2, x1, x2, y1, y2)
-
-        return null;
+        return objFun.exportSVM();
     }
 
-    // Double kernel(Vector<Double> x, Vector<Double> sv) {
-    // return null;
-    // }
-
-    // Karush-Kuhn-Tucker condition
+    //
+    /**
+     * Karush-Kuhn-Tucker condition
+     * 
+     * @param alpha
+     *            the alpha to be checked
+     * @param value
+     *            fx * y
+     */
     public boolean satisfyKKT(Double alpha, Double value) {
 
         if (alpha < 0 || alpha > constraint) {
@@ -96,7 +98,6 @@ public final class SVMClassifier {
             return false;
         }
 
-        // Double value = fx(x) * y;
         if (alpha == 0) {
             // fx * y should >= 1
             if (value < 1.0) {
