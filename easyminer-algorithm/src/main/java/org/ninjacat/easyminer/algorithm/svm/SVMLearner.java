@@ -21,6 +21,8 @@ public final class SVMLearner {
 
         SVMClassifier fx = new SVMClassifier(null, null, bias, bias, y);
 
+        // SVMObjectiveFunction fx;
+
         alpha = new Double[y.length];
 
         for (int i = 0; i < recordNum; i++) {
