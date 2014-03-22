@@ -8,7 +8,7 @@ public class IsInPredicate implements Predicate {
     String field = null;
     Set<String> values = new HashSet<String>();
 
-    IsInPredicate(String field, Set<String> values) {
+    public IsInPredicate(String field, Set<String> values) {
         super();
         this.field = field;
         this.values.addAll(values);
