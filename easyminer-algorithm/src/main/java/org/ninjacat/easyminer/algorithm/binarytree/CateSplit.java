@@ -12,19 +12,25 @@ public class CateSplit implements Split {
 
     private final String splitField;
 
-    // private final int leftCateBinaryValue;
-
     private final Set<String> leftCateSet = new HashSet<String>();
 
     private final Set<String> rightCateSet = new HashSet<String>();
 
     public CateSplit(String splitField, int leftCateBinaryValue, List<String> levels) {
-        super();
+
         this.splitField = splitField;
-        // this.leftCateBinaryValue = leftCateBinaryValue;
 
         // --------------------------------------------
         // Find left cate set
+        leftCateSet.addAll(findLeftCateSet(leftCateBinaryValue, levels));
+
+        // ---------------------------------------------
+        // Find right cate set
+        rightCateSet.addAll(levels);
+        rightCateSet.removeAll(leftCateSet);
+    }
+
+    private Set<String> findLeftCateSet(int leftCateBinaryValue, List<String> levels) {
         char[] leftCateArray = Integer.toBinaryString(leftCateBinaryValue).toCharArray();
 
         char[] leftCatesPadded = new char[levels.size()];
@@ -47,12 +53,7 @@ public class CateSplit implements Split {
             }
         }
 
-        rightCateSet.addAll(levels);
-        rightCateSet.removeAll(leftCateSet);
-        // this.leftCateArray = new boolean[array.length];
-        // for (int i = 0; i < array.length; i++) {
-        // this.leftCateArray[i] = array[i];
-        // }
+        return leftCateSet;
     }
 
     /**
@@ -68,8 +69,6 @@ public class CateSplit implements Split {
      * @return the child_impurity
      */
     public Double childImpurity(String[] data, String[] target, List<String> levels, boolean[] nodeRecords) {
-
-        // Set<String> leftCateSet = getLeftCateSet(levels);
 
         ChildRecordDists childRecordDists = getRecordDistInChildren(leftCateSet, data, target, nodeRecords);
 
@@ -91,7 +90,6 @@ public class CateSplit implements Split {
         Map<String, Integer> rightRecordDist = new HashMap<String, Integer>();
 
         int leftCount = 0;
-
         int rightCount = 0;
 
         for (int i = 0; i < data.length; i++) {

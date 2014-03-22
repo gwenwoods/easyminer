@@ -140,7 +140,7 @@ public final class BinaryTreeNode {
                 }
             }
         } else {
-            ((NumSplit) bestSplit).g
+            // ((NumSplit) bestSplit)
         }
         BinaryTreeNode leftChild =
             new BinaryTreeNode(leftPredicate, cateData, numericData, target, leftNodeRecords, cateFieldsInfo);

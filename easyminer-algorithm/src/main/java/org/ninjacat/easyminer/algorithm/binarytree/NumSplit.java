@@ -10,13 +10,12 @@ public class NumSplit implements Split {
 
     private final String splitField;
 
-    private final Double splitValue;
-
+    // ---------------------------------
     // Left <= splitValue
     // Right > splitValue
+    private final Double splitValue;
 
     public NumSplit(String splitField, Double splitValue) {
-        super();
         this.splitField = splitField;
         this.splitValue = splitValue;
 

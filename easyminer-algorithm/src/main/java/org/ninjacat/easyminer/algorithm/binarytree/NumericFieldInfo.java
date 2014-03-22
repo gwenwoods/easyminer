@@ -2,7 +2,7 @@ package org.ninjacat.easyminer.algorithm.binarytree;
 
 import java.util.List;
 
-public class NumericFieldInfo {
+public class NumericFieldInfo implements FieldInfo {
 
     public List<String> getLevels() {
         return null;
