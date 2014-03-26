@@ -1,4 +1,4 @@
-package org.ninjacat.easyminer.io;
+package org.easyminer.io;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;

@@ -1,4 +1,9 @@
-package org.ninjacat.easyminer.io.data;
+package org.easyminer.io.data;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The data.
@@ -15,6 +20,8 @@ public final class Data {
 
     String[] cateHeader;
     String[] numericHeader;
+
+    CateFieldStat[] cateFieldStat;
 
     int cateFieldNum;
     int numericFieldNum;
@@ -54,6 +61,7 @@ public final class Data {
         cateHeader = new String[cateFieldNum];
         numericHeader = new String[numericFieldNum];
 
+        cateFieldStat = new CateFieldStat[cateFieldNum];
         int cateIndex = 0;
         int numericIndex = 0;
 
@@ -77,13 +85,17 @@ public final class Data {
                 }
                 numericIndex++;
             } else {
+
+                String[] fieldData = new String[rowNum];
                 for (int i = 0; i < rowNum; i++) {
 
                     if (data[i][j] != null) {
                         cateData[i][cateIndex] = data[i][j];
                         cateHeader[cateIndex] = header[j];
+                        fieldData[i] = data[i][j];
                     }
                 }
+                cateFieldStat[cateIndex] = findCateFieldStat(header[j], fieldData);
                 cateIndex++;
             }
 
@@ -119,4 +131,53 @@ public final class Data {
         return columnType;
     }
 
+    public CateFieldStat getCateFieldStat(String fieldName) {
+
+        Integer index = null;
+
+        for (int i = 0; i < cateHeader.length; i++) {
+            if (fieldName.equals(cateHeader[i])) {
+                index = i;
+            }
+        }
+
+        return cateFieldStat[index];
+    }
+
+    // private String[] getCateFieldData(String fieldName) {
+    //
+    // Integer index = null;
+    // for (int i = 0; i < cateHeader.length; i++) {
+    // if (fieldName.equals(cateHeader[i])) {
+    // index = i;
+    // }
+    // }
+    //
+    // String[] fieldData = new String[data.length];
+    // for (int i = 0; i < data.length; i++) {
+    // fieldData[i] = cateData[i][index];
+    // }
+    // return fieldData;
+    // }
+
+    private CateFieldStat findCateFieldStat(String fieldName, String[] fieldData) {
+
+        Map<String, Integer> cateCountMap = new HashMap<String, Integer>();
+
+        for (int i = 0; i < fieldData.length; i++) {
+            String dataValue = fieldData[i];
+            Integer count = cateCountMap.get(dataValue);
+            if (count == null) {
+                count = 0;
+            } else {
+                count++;
+            }
+            cateCountMap.put(dataValue, count);
+        }
+
+        List<String> levels = new ArrayList<String>();
+        levels.addAll(cateCountMap.keySet());
+
+        return new CateFieldStat(fieldName, levels, cateCountMap);
+    }
 }

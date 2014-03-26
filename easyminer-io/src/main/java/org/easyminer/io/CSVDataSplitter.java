@@ -1,4 +1,4 @@
-package org.ninjacat.easyminer.io;
+package org.easyminer.io;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;

@@ -1,4 +1,4 @@
-package org.ninjacat.easyminer.io;
+package org.easyminer.io;
 
 public abstract class AbstractFieldData implements FieldData {
 

@@ -1,10 +1,10 @@
-package org.ninjacat.easyminer.io;
+package org.easyminer.io;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
-import org.ninjacat.easyminer.io.data.Data;
+import org.easyminer.io.data.Data;
 
 /**
  * Read csv file.
