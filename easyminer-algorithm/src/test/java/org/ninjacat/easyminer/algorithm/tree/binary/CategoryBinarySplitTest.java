@@ -3,8 +3,8 @@ package org.ninjacat.easyminer.algorithm.tree.binary;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ninjacat.easyminer.io.FieldData;
-import org.ninjacat.easyminer.io.StringData;
+import org.easyminer.io.FieldData;
+import org.easyminer.io.StringData;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

@@ -3,7 +3,7 @@ package org.ninjacat.easyminer.transformations.apply.mathfunction;
 import org.dmg.pmml42.ApplyDocument;
 import org.dmg.pmml42.DerivedFieldDocument;
 import org.dmg.pmml42.FieldRefDocument;
-import org.ninjacat.easyminer.io.DoubleData;
+import org.easyminer.io.DoubleData;
 
 public class PlusFunction {
 

@@ -2,7 +2,8 @@ package org.ninjacat.easyminer.io;
 
 import java.util.regex.Pattern;
 
-import org.ninjacat.easyminer.io.data.Data;
+import org.easyminer.io.CSVReader;
+import org.easyminer.io.data.Data;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

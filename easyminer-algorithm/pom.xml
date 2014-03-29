@@ -3,7 +3,7 @@
     xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.ninjacat.easyminer</groupId>
+        <groupId>org.easyminer</groupId>
         <artifactId>easyminer</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
@@ -18,17 +18,17 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.ninjacat.easyminer</groupId>
+            <groupId>org.easyminer</groupId>
             <artifactId>easyminer-profiler</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.ninjacat.easyminer</groupId>
+            <groupId>org.easyminer</groupId>
             <artifactId>easyminer-io</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.ninjacat.easyminer</groupId>
+            <groupId>org.easyminer</groupId>
             <artifactId>easyminer-transformations</artifactId>
             <version>${project.version}</version>
         </dependency>

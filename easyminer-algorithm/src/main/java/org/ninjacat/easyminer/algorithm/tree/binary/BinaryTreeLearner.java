@@ -3,7 +3,7 @@ package org.ninjacat.easyminer.algorithm.tree.binary;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ninjacat.easyminer.io.FieldData;
+import org.easyminer.io.FieldData;
 
 public class BinaryTreeLearner {
 

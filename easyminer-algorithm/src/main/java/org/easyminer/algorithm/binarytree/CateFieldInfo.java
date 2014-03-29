@@ -1,8 +1,8 @@
-package org.ninjacat.easyminer.algorithm.binarytree;
+package org.easyminer.algorithm.binarytree;
 
 import java.util.List;
 
-public class NumericFieldInfo implements FieldInfo {
+public class CateFieldInfo implements FieldInfo {
 
     public List<String> getLevels() {
         return null;

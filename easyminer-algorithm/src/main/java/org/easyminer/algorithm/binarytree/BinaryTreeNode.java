@@ -1,4 +1,4 @@
-package org.ninjacat.easyminer.algorithm.binarytree;
+package org.easyminer.algorithm.binarytree;
 
 import java.util.ArrayList;
 import java.util.List;

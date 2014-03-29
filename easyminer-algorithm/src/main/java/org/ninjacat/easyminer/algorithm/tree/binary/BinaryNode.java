@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.dmg.pmml42.NodeDocument;
-import org.ninjacat.easyminer.io.FieldData;
-import org.ninjacat.easyminer.io.StringData;
+import org.easyminer.io.FieldData;
+import org.easyminer.io.StringData;
 
 public final class BinaryNode {
 

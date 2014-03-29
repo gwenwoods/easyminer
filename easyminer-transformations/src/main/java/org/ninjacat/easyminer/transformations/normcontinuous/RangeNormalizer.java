@@ -4,8 +4,8 @@ import java.io.BufferedReader;
 
 import org.dmg.pmml42.DerivedFieldDocument;
 import org.dmg.pmml42.NormContinuousDocument;
-import org.ninjacat.easyminer.io.DoubleData;
-import org.ninjacat.easyminer.io.FileBufferedReader;
+import org.easyminer.io.DoubleData;
+import org.easyminer.io.FileBufferedReader;
 
 public class RangeNormalizer {
 

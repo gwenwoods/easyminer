@@ -12,8 +12,8 @@ import org.apache.commons.io.IOUtils;
 import org.apache.xmlbeans.XmlOptions;
 import org.dmg.pmml42.NodeDocument;
 import org.dmg.pmml42.PMMLDocument;
-import org.ninjacat.easyminer.io.FieldData;
-import org.ninjacat.easyminer.io.StringData;
+import org.easyminer.io.FieldData;
+import org.easyminer.io.StringData;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
