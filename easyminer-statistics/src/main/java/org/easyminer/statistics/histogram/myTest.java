@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 
 import org.easyminer.io.CSVReader;
 import org.easyminer.io.data.CateFieldStat;
-import org.easyminer.io.data.Data;
+import org.easyminer.io.data.Data1;
 
 public class myTest {
 
@@ -68,7 +68,7 @@ public class myTest {
         // fieldDataList.add(dataB);
         // fieldDataList.add(dataC);
 
-        Data data = CSVReader.read("/Users/wenlin/Desktop/audit.csv");
+        Data1 data = CSVReader.read("/Users/wenlin/Desktop/audit.csv");
         data.getCateHeader();
         CateFieldStat employmentStat = data.getCateFieldStat("Employment");
         CateFieldStat educationStat = data.getCateFieldStat("Education");

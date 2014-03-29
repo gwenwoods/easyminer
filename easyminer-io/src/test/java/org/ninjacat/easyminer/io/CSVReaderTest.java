@@ -3,7 +3,7 @@ package org.ninjacat.easyminer.io;
 import java.util.regex.Pattern;
 
 import org.easyminer.io.CSVReader;
-import org.easyminer.io.data.Data;
+import org.easyminer.io.data.Data1;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -35,7 +35,7 @@ public class CSVReaderTest extends TestCase {
      */
     public void testCSVReader() {
 
-        Data data = CSVReader.read("/Users/wenlin/Desktop/audit.csv");
+        Data1 data = CSVReader.read("/Users/wenlin/Desktop/audit.csv");
 
         System.out.println(data.getColumnType().length);
         for (int i = 0; i < data.getColumnType().length; i++) {

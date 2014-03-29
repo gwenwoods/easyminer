@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.dmg.pmml42.NodeDocument;
+import org.easyminer.io.data.CateFieldStat;
 import org.ninjacat.easyminer.algorithm.tree.binary.IsInPredicate;
 import org.ninjacat.easyminer.algorithm.tree.binary.Predicate;
 
@@ -29,12 +30,12 @@ public final class BinaryTreeNode {
      * @param usedDataIndex
      */
     public BinaryTreeNode(Predicate predicate, String[][] cateData, Double[][] numericData, String[] target,
-        boolean[] nodeRecords, CateFieldInfo[] cateFieldsInfo) {
+        boolean[] nodeRecords, CateFieldStat[] cateFieldStats) {
         this.predicate = predicate;
 
         // this.score = ((StringData) target).getWinningCate();
         List<BinaryTreeNode> childrenNodes =
-            splitToChildren(cateData, numericData, target, nodeRecords, cateFieldsInfo);
+            splitToChildren(cateData, numericData, target, nodeRecords, cateFieldStats);
 
         if (childrenNodes != null && childrenNodes.size() == 2) {
             this.leftChild = childrenNodes.get(0);
@@ -50,13 +51,13 @@ public final class BinaryTreeNode {
     }
 
     private List<BinaryTreeNode> splitToChildren(String[][] cateData, Double[][] numericData,
-        String[] target, boolean[] nodeRecords, CateFieldInfo[] cateFieldsInfo) {
+        String[] target, boolean[] nodeRecords, CateFieldStat[] cateFieldStats) {
 
         // if (((StringData) target).getData().size() < 5) {
         // return null;
         // }
 
-        Split bestSplit = findBestSplit(cateData, numericData, target, nodeRecords, cateFieldsInfo);
+        Split bestSplit = findBestSplit(cateData, numericData, target, nodeRecords, cateFieldStats);
 
         // List<Boolean> leftDataIndices = dataInLeftNode(bestSplit, data);
         // List<Boolean> rightDataIndices = dataInRightNode(bestSplit, data);
@@ -124,7 +125,7 @@ public final class BinaryTreeNode {
             leftPredicate = new IsInPredicate(splitFieldName, leftCateSet);
             rightPredicate = new IsInPredicate(splitFieldName, rightCateSet);
 
-            int splitFieldIndex = findSplitFieldIndex(cateFieldsInfo);
+            int splitFieldIndex = findSplitFieldIndex(cateFieldStats);
             String[] fieldColumnData = new String[target.length];
             for (int index = 0; index < target.length; index++) {
                 fieldColumnData[index] = cateData[index][splitFieldIndex];
@@ -143,10 +144,10 @@ public final class BinaryTreeNode {
             // ((NumSplit) bestSplit)
         }
         BinaryTreeNode leftChild =
-            new BinaryTreeNode(leftPredicate, cateData, numericData, target, leftNodeRecords, cateFieldsInfo);
+            new BinaryTreeNode(leftPredicate, cateData, numericData, target, leftNodeRecords, cateFieldStats);
         BinaryTreeNode rightChild =
             new BinaryTreeNode(rightPredicate, cateData, numericData, target, rightNodeRecords,
-                cateFieldsInfo);
+                cateFieldStats);
 
         List<BinaryTreeNode> childNodes = new ArrayList<BinaryTreeNode>();
         childNodes.add(leftChild);
@@ -155,7 +156,7 @@ public final class BinaryTreeNode {
         return childNodes;
     }
 
-    private int findSplitFieldIndex(CateFieldInfo[] cateFieldsInfo) {
+    private int findSplitFieldIndex(CateFieldStat[] cateFieldStats) {
         // TODO Auto-generated method stub
         return 0;
     }
@@ -169,7 +170,7 @@ public final class BinaryTreeNode {
      * @return the best split
      */
     private Split findBestSplit(String[][] cateData, Double[][] numericData, String[] target,
-        boolean[] nodeRecords, CateFieldInfo[] cateFieldsInfo) {
+        boolean[] nodeRecords, CateFieldStat[] cateFieldStats) {
 
         Split bestSplit = null;
         Double minimumImpurity = null;
@@ -178,8 +179,8 @@ public final class BinaryTreeNode {
         // Check all cate splits
         int cateFieldNum = cateData[0].length;
         for (int i = 0; i < cateFieldNum; i++) {
-            List<String> cateLevels = cateFieldsInfo[i].getLevels();
-            String fieldName = cateFieldsInfo[i].getFieldName();
+            List<String> cateLevels = cateFieldStats[i].getLevels();
+            String fieldName = cateFieldStats[i].getFieldName();
 
             String[] fieldColumnData = new String[target.length];
             for (int index = 0; index < target.length; index++) {
@@ -201,8 +202,8 @@ public final class BinaryTreeNode {
         // Chek Num Split
         int numericFieldNum = numericData[0].length;
         for (int i = 0; i < numericFieldNum; i++) {
-            List<String> cateLevels = cateFieldsInfo[i].getLevels();
-            String fieldName = cateFieldsInfo[i].getFieldName();
+            List<String> cateLevels = cateFieldStats[i].getLevels();
+            String fieldName = cateFieldStats[i].getFieldName();
 
             String[] fieldColumnData = new String[target.length];
             for (int index = 0; index < target.length; index++) {

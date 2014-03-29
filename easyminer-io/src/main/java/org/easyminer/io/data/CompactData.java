@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * The data.
  */
-public final class Data {
+public final class CompactData {
 
     String[][] data;
     String[] header;
@@ -29,7 +29,7 @@ public final class Data {
     // String baseFilename;
     // List<String> headFields = new ArrayList<String>();
 
-    public Data(String[][] data, String[] header) {
+    public CompactData(String[][] data, String[] header) {
 
         int rowNum = data.length;
         int columnNum = data[0].length;
