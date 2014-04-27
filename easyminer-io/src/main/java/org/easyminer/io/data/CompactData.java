@@ -10,7 +10,9 @@ import java.util.Map;
  */
 public final class CompactData {
 
-    String[][] data;
+    // String[][] data;
+
+    int rowNum;
     String[] header;
 
     String[] columnType;
@@ -31,7 +33,7 @@ public final class CompactData {
 
     public CompactData(String[][] data, String[] header) {
 
-        int rowNum = data.length;
+        rowNum = data.length;
         int columnNum = data[0].length;
 
         columnType = new String[columnNum];
@@ -179,5 +181,9 @@ public final class CompactData {
         levels.addAll(cateCountMap.keySet());
 
         return new CateFieldStat(fieldName, levels, cateCountMap);
+    }
+
+    public int getRecordNum() {
+        return rowNum;
     }
 }

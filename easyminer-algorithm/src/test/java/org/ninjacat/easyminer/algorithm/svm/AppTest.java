@@ -1,4 +1,4 @@
-package org.ninjacat.easyminer.algorithm;
+package org.ninjacat.easyminer.algorithm.svm;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

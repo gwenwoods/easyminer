@@ -56,7 +56,7 @@ public final class BinaryTreeNode {
         // if (((StringData) target).getData().size() < 5) {
         // return null;
         // }
-
+        // TODO: require stop criteria
         Split bestSplit = findBestSplit(cateData, numericData, target, nodeRecords, cateFieldStats);
 
         // List<Boolean> leftDataIndices = dataInLeftNode(bestSplit, data);
