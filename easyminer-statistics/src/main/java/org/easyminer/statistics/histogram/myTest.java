@@ -1,5 +1,7 @@
 package org.easyminer.statistics.histogram;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,14 +9,15 @@ import javax.swing.JFrame;
 
 import org.easyminer.io.CSVReader;
 import org.easyminer.io.data.CateFieldStat;
-import org.easyminer.io.data.Data1;
+import org.easyminer.io.data.CompactData;
 
 public class myTest {
 
     /**
      * @param args
+     * @throws IOException
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // TODO Auto-generated method stub
 
         String fieldName = "woof";
@@ -68,9 +71,15 @@ public class myTest {
         // fieldDataList.add(dataB);
         // fieldDataList.add(dataC);
 
-        Data1 data = CSVReader.read("/Users/wenlin/Desktop/audit.csv");
+        File directory = new File("..");
+        String rootPath = directory.getCanonicalPath();
+        String dataPath = rootPath + "/src/test/resources/data/audit.csv";
+
+        CompactData data = CSVReader.read(dataPath);
+
+        // CompactData data = CSVReader.read("/Users/wenlin/Desktop/audit.csv");
         data.getCateHeader();
-        CateFieldStat employmentStat = data.getCateFieldStat("Employment");
+        // CateFieldStat employmentStat = data.getCateFieldStat("Employment");
         CateFieldStat educationStat = data.getCateFieldStat("Education");
         // fieldDataList.add(employmentStat);
         fieldDataList.add(educationStat);
