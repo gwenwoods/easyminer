@@ -1,4 +1,4 @@
-package org.ninjacat.easyminer;
+package org.easyminer;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

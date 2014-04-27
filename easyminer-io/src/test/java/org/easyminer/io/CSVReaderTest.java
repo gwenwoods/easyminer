@@ -1,9 +1,10 @@
-package org.ninjacat.easyminer.io;
+package org.easyminer.io;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.regex.Pattern;
 
-import org.easyminer.io.CSVReader;
-import org.easyminer.io.data.Data1;
+import org.easyminer.io.data.CompactData;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -32,18 +33,22 @@ public class CSVReaderTest extends TestCase {
 
     /**
      * Rigourous Test :-)
+     * 
+     * @throws IOException
      */
-    public void testCSVReader() {
+    public void testCSVReader() throws IOException {
 
-        Data1 data = CSVReader.read("/Users/wenlin/Desktop/audit.csv");
+        File directory = new File("..");
+        String rootPath = directory.getCanonicalPath();
+        String dataPath = rootPath + "/src/test/resources/data/audit.csv";
 
-        System.out.println(data.getColumnType().length);
+        CompactData data = CSVReader.read(dataPath);
+
         for (int i = 0; i < data.getColumnType().length; i++) {
             System.out.print(data.getColumnType()[i] + ",");
         }
 
         System.out.println();
-
         // --------------------
         // cate data
         for (int j = 0; j < data.getCateHeader().length; j++) {

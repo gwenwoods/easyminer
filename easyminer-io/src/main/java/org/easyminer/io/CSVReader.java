@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
-import org.easyminer.io.data.Data1;
+import org.easyminer.io.data.CompactData;
 
 /**
  * Read csv file.
@@ -16,7 +16,7 @@ public class CSVReader {
 
     private static Pattern patternQuot = Pattern.compile("^\"|\"$");
 
-    public static final Data1 read(String filename) {
+    public static final CompactData read(String filename) {
 
         String[][] rawData = createData(filename);
         String[] headerArray = null;
@@ -72,7 +72,7 @@ public class CSVReader {
             e.printStackTrace();
         }
 
-        return new Data1(rawData, headerArray);
+        return new CompactData(rawData, headerArray);
     }
 
     private static String[][] createData(String filename) {

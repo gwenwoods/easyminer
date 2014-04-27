@@ -1,4 +1,4 @@
-package org.ninjacat.easyminer;
+package org.easyminer;
 
 /**
  * Hello world!

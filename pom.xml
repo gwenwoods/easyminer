@@ -34,10 +34,10 @@
         <module>easyminer-profiler</module>
         <module>easyminer-xsd</module>
         <module>easyminer-io</module>
+        <module>easyminer-statistics</module>
         <module>easyminer-transformations</module>
         <module>easyminer-algorithm</module>
         <module>easyminer-executor</module>
         <module>easyminer-ui</module>
-        <module>easyminer-statistics</module>
   </modules>
 </project>

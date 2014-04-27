@@ -8,6 +8,9 @@ import java.util.Map;
 import java.util.Vector;
 
 /**
+ * 
+ * Experimental set. Might be deprecated later - Apr 14.
+ * 
  * The data.
  */
 public final class Data1 {
@@ -23,7 +26,8 @@ public final class Data1 {
 
     String targetFieldName;
     String targetDataType;
-    Vector targetVector;
+    Vector<? extends Object> cateTargetVector;
+    Vector<Double> numericTargetVector;
     // String[] columnType;
 
     // String[] cateHeader;
@@ -202,32 +206,40 @@ public final class Data1 {
         return new CateFieldStat(fieldName, levels, cateCountMap);
     }
 
-    public void setTarget(String fieldName) {
+    public <T> void setTarget(String fieldName, Class<T> T) {
 
         if (fieldName.equals(targetFieldName)) {
             return;
         }
 
         if (targetFieldName != null) {
-            if ("Double".equals(targetDataType)) {
-                numericData.put(targetFieldName, targetVector);
+            // if ("Double".equals(targetDataType)) {
+            if (Double.class == T) {
+                numericData.put(targetFieldName, numericTargetVector);
             } else {
-                cateData.put(targetFieldName, targetVector);
+                cateData.put(targetFieldName, (Vector<String>) cateTargetVector);
             }
         }
 
         targetFieldName = fieldName;
         targetDataType = columnTypeMap.get(fieldName);
         if ("Double".equals(targetDataType)) {
-            targetVector = numericData.get(fieldName);
+            numericTargetVector = numericData.get(fieldName);
+
+            if (String.class == T) {
+                cateTargetVector = new Vector<String>();
+                for (int i = 0; i < numericTargetVector.size(); i++) {
+
+                }
+            }
             numericData.remove(fieldName);
         } else {
-            targetVector = cateData.get(fieldName);
+            cateTargetVector = cateData.get(fieldName);
             cateData.remove(fieldName);
         }
     }
 
-    public Vector getTargetVector() {
-        return targetVector;
+    public Vector<? extends Object> getCateTargetVector() {
+        return cateTargetVector;
     }
 }
